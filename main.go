@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api/src/config"
 	"api/src/router"
 	"fmt"
 	"log"
@@ -10,8 +11,11 @@ import (
 )
 
 func main() {
+	config.Carregar()
+	fmt.Println(config.Porta)
+
 	fmt.Println("ConnectUs")
 	r := router.Gerar()
-	log.Fatal(http.ListenAndServe(":4000", r))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Porta), r))
 
 }

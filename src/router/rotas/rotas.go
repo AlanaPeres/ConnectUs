@@ -15,7 +15,7 @@ type Rota struct {
 }
 
 // Configurar coloca todas as rotas dentro do router
-// recebe um router q não tem nenhuma rota dentro, vai configurar todas as rotas utilizando o handlefunc e devolver o router pronto.
+// recebe um router q não tem nenhuma rota dentro, vai configurar todas essas rotas utilizando o handlefunc e devolver o router pronto.
 func Configurar(r *mux.Router) *mux.Router {
 
 	rotas := rotasUsuarios
