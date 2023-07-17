@@ -4,6 +4,8 @@ import (
 	"errors"
 	"strings"
 	"time"
+
+	"github.com/badoux/checkmail"
 )
 
 // Usuario representa um usuário que utiliza a rede social
@@ -34,6 +36,10 @@ func (usuario Usuario) validar(etapa string) error {
 	}
 	if usuario.Email == "" {
 		return errors.New("O e-mail é obrigatório e não pode estar em branco")
+	}
+
+	if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
+		return errors.New("O e-mail inserido é inválido")
 	}
 	if etapa == "cadastro" && usuario.Senha == "" {
 		return errors.New("O senha é obrigatório e não pode estar em branco")
