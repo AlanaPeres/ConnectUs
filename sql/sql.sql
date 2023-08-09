@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS connectUs; 
 USE connectUs;
 DROP TABLE IF EXISTS usuarios; 
+DROP TABLE IF EXISTS seguidores; 
 
 CREATE TABLE usuarios(
     id int auto_increment primary key,
@@ -18,7 +19,7 @@ CREATE TABLE seguidores(
     ON DELETE CASCADE,
 
     seguidor_id int not null,
-    FOREIGN KEY (usuario_id)
+    FOREIGN KEY (seguidor_id)
     REFERENCES usuarios(id)
     ON DELETE CASCADE,
 
