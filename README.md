@@ -1,56 +1,40 @@
-# ConnectUs
+# :globe_with_meridians: ConnectUs API: Uma Rede Social Interativa
+A ConnectUs API é uma plataforma de rede social que oferece recursos poderosos para criar, interagir e compartilhar informações. A API é projetada para permitir a criação, gerenciamento e consulta de usuários e publicações, oferecendo uma experiência rica e envolvente para a sua aplicação.
 
-### O que é ?
+## :pushpin: Entidades Principais 
+### Usuários :family:
+A entidade "Usuários" é o núcleo da ConnectUs API, fornecendo funcionalidades abrangentes de gerenciamento de perfis de usuário. Os recursos incluem:
 
-É uma rede social onde é possível criar publicações de textos.
+<li>CRUD Básico: Crie, leia, atualize e delete perfis de usuários.</li>
+<li>Seguir Usuários: Estabeleça conexões ao seguir outros usuários.</li>
+<li>Parar de Seguir: Termine conexões ao deixar de seguir usuários.</li>
+<li>Listar Seguindo: Obtenha a lista de usuários que um usuário específico está seguindo.</li>
+<li>Listar Seguidores: Recupere a lista de usuários que seguem um determinado usuário.</li>
+<li>Atualizar Senha: Permita aos usuários atualizar suas senhas com segurança.</li>
 
-A aplicação ConnectUs possui duas entidades: Usuários e Publicações.
+### Publicações :newspaper:
+A entidade "Publicações" permite que os usuários compartilhem informações com sua rede. Os recursos incluem:
 
-A entidade **usuários** possui o CRUD básico e outras funcionalidades como:
+<li>CRUD Básico: Crie, leia, atualize e delete publicações.</li>
+<li>Listar por Usuários Seguidos: Recupere publicações de usuários que estão sendo seguidos por um determinado usuário.</li>
+<li>Curtir Publicações: Permita aos usuários curtir as publicações de outros usuários.</li>
 
-- Seguir outro usuário
-- Parar de seguir
-- Buscar todos os usuários que segue
-- Buscar todos os usuários que são seguidos
-- Atualizar senha
+## :wrench: Estrutura da API
+A ConnectUs API é estruturada em pacotes principais e auxiliares para promover modularidade e facilitar a manutenção.
 
-No banco de dados Mysql eu tenho duas tabelas para lidar com esses usuários:
+### :file_folder: Pacotes Principais
 
-- Usuários
-- Seguidores
+<li>Main: Configuração inicial da aplicação, inicialização do roteador HTTP e execução do servidor.</li>
+<li>Router: Gerenciamento de rotas usando Gorilla Mux, permitindo o direcionamento de solicitações para os controladores adequados.</li>
+<li>Controllers: Implementação das funções de manipulação de solicitações HTTP. Os controladores se comunicam com os modelos e repositórios.</li>
+<li>Models: Definição das estruturas de dados para Usuários e Publicações, incluindo métodos para operações específicas.</li>
+<li>Repositórios: Interação direta com o banco de dados para executar operações de leitura, escrita e consulta.</li>
 
-A segunda entidade são as publicações:
+### :file_folder: Pacotes Auxiliares
 
-- CRUD básico (criar publicação, buscar, editar e excluir)
-- Buscar publicações de acordo com os usuários que são seguidos por um outro usuário.
-- Curtir
-
-No banco de dados para a entidade Publicações terei apenas a tabela de publicações.
-
-# Estrutura API ConnectUs
-
-ConnectUs é uma aplicação web (front-end) que chama a API ConnectUs,  e ela vai ser o meio de comunicação entre a aplicação web e o banco de dados. Então o banco de dados só será manipulado pela API.
-
-Como os programas em GO são divididos em pacotes, veremos como é a estrutura desses pacotes na ConnectUs API.
-
-## Pacotes Principais
-
-Esses pacotes principais são os que estão relacionados com a estrutura da API
-
-- Main
-- Router - configura o router e todas as rotas que estão em baixo dele utilizando o Gorilla mux que é um roteador  http para Golang.
-- Controllers - é onde ficam todas as funções que irão lidar e executar as requisições http configuradas no pacote Router. O pacote controller vai se comunicar com os pacotes Modelos e Repositórios.
-- Models - é aqui onde vão ficar guardado os modelos(structs e seus métodos) de Usuários e Publicações, que são as duas entidades da aplicação.
-- Repositórios - Nesse pacote temos a interação com o banco de dados, então as interações do banco só são manipuladas através deste pacote.
-
-## Pacotes Auxiliares
-
-Lidam mais com as utilidades da API.
-
-- Config - vai principalmente configurar as variáveis de ambiente para proteger as informações dos usuários(tirando as credenciais do próprio código) e para que a API tenha uma fácil manutenção se um dia for necessário.
-- Banco - Abre a conexão com o banco de dados
-- Autenticação - Cuida do Login e criação de Token de autenticação.
-- Middleware - Camada entre a requisição e a resposta para ver se o usuário está autenticado, então ele é utilizado em conjunto com o pacote de autenticação.
-- Segurança - Lida com as senhas, verifica se a senha que o usuários está informando bate com as informações do banco de dados.
-- Respostas - Padronizar as respostas que a API devolve.
-
+<li>Config: Gerenciamento de variáveis de ambiente para proteger informações sensíveis e garantir facilidade de manutenção.</li>
+<li>Banco: Gerenciamento da conexão com o banco de dados MySQL.</li>
+<li>Autenticação: Lida com a autenticação de usuários, incluindo a geração e validação de tokens.</li>
+<li>Middleware: Camada intermediária que verifica a autenticação do usuário antes de encaminhar as solicitações para os controladores.</li>
+<li>Segurança: Gerenciamento de senhas, incluindo a verificação da correspondência de senhas no banco de dados.</li>
+<li>Respostas: Padronização das respostas da API para garantir consistência nas interações.</li>
